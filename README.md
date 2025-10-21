@@ -34,6 +34,25 @@
 </p>
 
 ## Лістинг функції name-function (Функціональний варіант)
+```Lisp
+(defun remove-first (elem lst)
+  (if (eql elem (car lst))
+      (cdr lst)
+      (cons (car lst) (remove-first elem (cdr lst)))))
+
+(defun findMinElem (elem lst)
+  (cond
+    ((NULL lst) elem)
+    ((> elem (car lst)) (findMinElem (car lst) (cdr lst)))
+    (t (findMinElem elem (cdr lst)))))
+
+(defun FchoiseSort (lst)
+  (cond
+    ((NULL (cdr lst)) lst)
+    (let (min (findMinElem (car lst) (cdr lst)))
+      (restList (remove-first (min lst)))
+      (cons min (FchoiseSort (restList))))))
+```
 
 ## Лістинг функції name-function (Імперативний варіант)
 
