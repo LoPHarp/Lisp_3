@@ -33,7 +33,7 @@
 <img src="lab-3-variant-algorithm.jpg">
 </p>
 
-## Лістинг функції name-function (Функціональний варіант)
+## Лістинг функції FchoiseSort (Функціональний варіант)
 ```Lisp
 (defun remove-first (elem lst)
   (if (eql elem (car lst))
@@ -54,7 +54,7 @@
       (cons min (FchoiseSort restList)))))
 ```
 
-## Лістинг функції name-function (Імперативний варіант)
+## Лістинг функції IchoiseSort (Імперативний варіант)
 
 ### Тестові набори та утиліти
 ```lisp
@@ -75,4 +75,17 @@
 ```
 
 ### Тестування
+FchoiseSort (Функціональний варіант)
+```lisp
+CL-USER> (test-FchoiseSort)
+passed test 1
+passed test 2
+passed test 3
+passed test 4
+passed test 5
+NIL
+```
+IchoiseSort (Імперативний варіант)
+```lisp
 
+```
