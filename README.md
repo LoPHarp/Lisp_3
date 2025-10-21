@@ -42,21 +42,37 @@
 
 (defun findMinElem (elem lst)
   (cond
-    ((NULL lst) elem)
+    ((null lst) elem)
     ((> elem (car lst)) (findMinElem (car lst) (cdr lst)))
     (t (findMinElem elem (cdr lst)))))
 
 (defun FchoiseSort (lst)
-  (cond
-    ((NULL (cdr lst)) lst)
-    (let (min (findMinElem (car lst) (cdr lst)))
-      (restList (remove-first (min lst)))
-      (cons min (FchoiseSort (restList))))))
+  (if (null (cdr lst))
+    lst
+    (let* ((min (findMinElem (car lst) (cdr lst)))
+          (restList (remove-first min lst)))
+      (cons min (FchoiseSort restList)))))
 ```
 
 ## Лістинг функції name-function (Імперативний варіант)
 
 ### Тестові набори та утиліти
+```lisp
+(defun check-FchoiseSort (name input expected)
+  "Execute `FchoiseSort` on `input`, compare result with `expected` and print comparison status"
+  (format t "~:[FAILED~;passed~] ~a~%"
+          ;; --- Виклик для функціональної версії (FchoiseSort) ---
+          (equal (FchoiseSort input) expected)      
+          ;; --- Виклик для ітеративної версії (IchoiseSort) ---
+          ; (equal (IchoiseSort input) expected)    
+          name))
+(defun test-FchoiseSort ()
+  (check-FchoiseSort "test 1" '(5 3 1 2 4) '(1 2 3 4 5))
+  (check-FchoiseSort "test 2" '(10 9 8 7 6 5) '(5 6 7 8 9 10))
+  (check-FchoiseSort "test 3" '(1 2 3 4 5) '(1 2 3 4 5))
+  (check-FchoiseSort "test 4" '(3) '(3))
+  (check-FchoiseSort "test 5" '() '()))
+```
 
 ### Тестування
 
