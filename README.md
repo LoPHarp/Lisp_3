@@ -55,29 +55,46 @@
 ```
 
 ## Лістинг функції IchoiseSort (Імперативний варіант)
+```lisp
+(defun IchoiseSort (lst)
+  (let ((lst-copy (copy-list lst)))    
+    (do ((lst-right lst-copy (cdr lst-right)))
+        ((null (cdr lst-right)))      
+      (let ((min-elem lst-right))
+        (do ((lst-for-search (cdr lst-right) (cdr lst-for-search)))
+            ((null lst-for-search))
+          (when (> (car min-elem) (car lst-for-search))
+                 (setf min-elem lst-for-search)))
+        (rotatef (car lst-right) (car min-elem))))      
+    lst-copy))
+```
 
 ### Тестові набори та утиліти
 ```lisp
-(defun check-FchoiseSort (name input expected)
-  "Execute `FchoiseSort` on `input`, compare result with `expected` and print comparison status"
+(defun check-choiseSort (name input expected)
+  "Execute sort function on `input`, compare result with `expected` and print comparison status"
   (format t "~:[FAILED~;passed~] ~a~%"
+
           ;; --- Виклик для функціональної версії (FchoiseSort) ---
-          (equal (FchoiseSort input) expected)      
+          ;(equal (FchoiseSort input) expected)
+
           ;; --- Виклик для ітеративної версії (IchoiseSort) ---
-          ; (equal (IchoiseSort input) expected)    
+          (equal (IchoiseSort input) expected)
+
           name))
-(defun test-FchoiseSort ()
-  (check-FchoiseSort "test 1" '(5 3 1 2 4) '(1 2 3 4 5))
-  (check-FchoiseSort "test 2" '(10 9 8 7 6 5) '(5 6 7 8 9 10))
-  (check-FchoiseSort "test 3" '(1 2 3 4 5) '(1 2 3 4 5))
-  (check-FchoiseSort "test 4" '(3) '(3))
-  (check-FchoiseSort "test 5" '() '()))
+
+(defun test-choiseSort ()
+  (check-choiseSort "test 1" '(5 3 1 2 4) '(1 2 3 4 5))
+  (check-choiseSort "test 2" '(10 9 8 7 6 5) '(5 6 7 8 9 10))
+  (check-choiseSort "test 3" '(1 2 3 4 5) '(1 2 3 4 5))
+  (check-choiseSort "test 4" '(3) '(3))
+  (check-choiseSort "test 5" '() '()))
 ```
 
 ### Тестування
 FchoiseSort (Функціональний варіант)
 ```lisp
-CL-USER> (test-FchoiseSort)
+CL-USER> (test-choiseSort)
 passed test 1
 passed test 2
 passed test 3
@@ -87,5 +104,11 @@ NIL
 ```
 IchoiseSort (Імперативний варіант)
 ```lisp
-
+CL-USER> (test-choiseSort)
+passed test 1
+passed test 2
+passed test 3
+passed test 4
+passed test 5
+NIL
 ```
